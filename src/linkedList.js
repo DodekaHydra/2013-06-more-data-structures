@@ -18,11 +18,22 @@ var makeLinkedList = function(){
     // removes and returns first node of list
   };
 
-  linkedList.contains = function(target){
+  linkedList.contains = function(target, currentNode){
     // checks to see if node exists
     // _.contains = _.include = function(obj, target) {}
-    var temp= linkedList.head;
-
+    currentNode = currentNode || linkedList.head;
+    if (currentNode.value === target) {
+      return true;
+    } else if (currentNode.next) {
+      while (currentNode.next) {
+        currentNode = currentNode.next;
+        if (currentNode.value === target) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
   };
 
   return linkedList;

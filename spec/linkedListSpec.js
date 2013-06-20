@@ -42,9 +42,9 @@ describe("linkedList", function() {
       linkedList.addToTail("test3");
       expect(linkedList.head.next.next.value).toEqual("test3");
     });
-
   });
-    describe(".contains", function(){
+
+  describe(".contains", function(){
 
     // add more tests here to test the functionality of linkedList
     it("should return true if the linked list contains the target value", function() {
@@ -52,5 +52,13 @@ describe("linkedList", function() {
       expect(linkedList.contains("test")).toEqual(true);
     });
 
+    it("should traverse all nodes to find, or not find, the target", function() {
+      linkedList.addToTail("blah");
+      linkedList.addToTail("what");
+      linkedList.addToTail("ever");
+      expect(linkedList.contains("ever")).toEqual(true);
+  //    expect(linkedList.contains("doesn't exist")).toEqual(false);
+    });
   });
+
 });
