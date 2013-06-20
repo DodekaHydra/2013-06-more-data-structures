@@ -31,6 +31,15 @@ describe("tree", function() {
       expect(tree.children).toContain("child1");
     });
   });
+  describe(".contains", function(){
+    it("should return false when there is no node", function() {
+      expect(tree.contains("bubblegum")).toEqual(false);
+    });
+    it("should return true when the node does exist", function() {
+      tree.addChild("test");
+      expect(tree.contains("test")).toEqual(true);
+    });
 
+  });
   // Add more tests here to test the functionality of tree.
 });

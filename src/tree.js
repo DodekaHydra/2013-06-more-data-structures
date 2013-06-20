@@ -21,5 +21,14 @@ makeTree.treeMethods.addChild = function(val){
   }
 };
 
-makeTree.treeMethods.contains = function(){
+makeTree.treeMethods.contains = function(val){
+  if (this.value){
+    if (this.value === true) {
+      return true;
+    } else {
+      this.children.contains(val);
+    }
+  } else {
+    return false;
+  } 
 };
