@@ -1,19 +1,31 @@
 // Note: don't use an array to do this.
 var makeLinkedList = function(){
-  var newLinkedList = {};
-  newLinkedList.head = null;
-  newLinkedList.tail = null;
+  var linkedList = {};
+  linkedList.head = null;
+  linkedList.tail = null;
 
-  newLinkedList.addToTail = function(){
+  linkedList.addToTail = function(value){
+    if (linkedList.tail){
+      linkedList.tail.next = makeNode(value);
+      linkedList.tail = linkedList.tail.next;
+    } else {
+       linkedList.head = makeNode(value);
+       linkedList.tail = linkedList.head;
+    }
+   };
+
+  linkedList.removeHead = function(){
+    // removes and returns first node of list
   };
 
-  newLinkedList.removeHead = function(){
+  linkedList.contains = function(target){
+    // checks to see if node exists
+    // _.contains = _.include = function(obj, target) {}
+    var temp= linkedList.head;
+
   };
 
-  newLinkedList.contains = function(){
-  };
-
-  return newLinkedList;
+  return linkedList;
 };
 
 var makeNode = function(value){
@@ -22,7 +34,21 @@ var makeNode = function(value){
   newNode.next = null;
 
   newNode.removeNextNode = function(){
+    /*in order to remove a node, you need to have the pointer from
+    the previous node which identifies the node to delete*/
   };
 
   return newNode;
 };
+/*/* newNode = {
+       value: "value"
+       next: "next pointer"
+     };
+
+   eachNode = {
+       #: "node contents as string"
+       next: point to next object
+   }
+
+how do we access the third node?
+linkedList.contains(3)*/
