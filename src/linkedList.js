@@ -3,7 +3,7 @@ var makeLinkedList = function(){
   var linkedList = {};
   linkedList.head = null;
   linkedList.tail = null;
-
+  var result;
   linkedList.addToTail = function(value){
     if (linkedList.tail){
       linkedList.tail.next = makeNode(value);
@@ -15,7 +15,11 @@ var makeLinkedList = function(){
    };
 
   linkedList.removeHead = function(){
-    // removes and returns first node of list
+    if (linkedList.head){
+      result = linkedList.head;
+      linkedList.head = result.next;
+      return result;
+    }
   };
 
   linkedList.contains = function(target, currentNode){
@@ -47,6 +51,7 @@ var makeNode = function(value){
   newNode.removeNextNode = function(){
     /*in order to remove a node, you need to have the pointer from
     the previous node which identifies the node to delete*/
+    newNode.next=newNode.next.next;
   };
 
   return newNode;

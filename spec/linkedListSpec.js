@@ -61,4 +61,21 @@ describe("linkedList", function() {
     });
   });
 
+  describe(".removeHead", function(){
+
+    // add more tests here to test the functionality of linkedList
+    it("should delete nothing if no head exists", function() {
+      linkedList.removeHead();
+      expect(linkedList.removeHead()).toEqual(undefined);
+    });
+
+    it("should delete head and update tail", function() {
+      linkedList.addToTail("what");
+      linkedList.addToTail("ever");
+      linkedList.removeHead();
+      expect(linkedList.head.value).toEqual("ever");
+      expect(linkedList.tail.value).toEqual("ever");
+    });
+
+  });
 });
