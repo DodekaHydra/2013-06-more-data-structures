@@ -16,7 +16,7 @@ var HashTable = function(){
 
 HashTable.prototype.insert = function(key, value){
   var index = getIndexBelowMaxForKey(key, this._limit);
-  console.log(value, this._limit, index);
+  //if 
   this._storage.set(index, value);
   this.bucket[index] = key;
 };
@@ -24,6 +24,7 @@ HashTable.prototype.insert = function(key, value){
 HashTable.prototype.retrieve = function(key){
   var index = getIndexBelowMaxForKey(key, this._limit);
   if (this._storage.get(index) && this.bucket[index] === key) {
+    console.log(this._storage.storage);
     return this._storage.get(index);
   } else {
     return false;

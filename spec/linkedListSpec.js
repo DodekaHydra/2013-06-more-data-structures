@@ -78,4 +78,36 @@ describe("linkedList", function() {
     });
 
   });
+
+  describe(".addToHead", function(){
+
+    // add more tests here to test the functionality of linkedList
+    it("should create a head if there is no head and have the value return correctly", function() {
+      linkedList.addToHead("test");
+      expect(linkedList.head.value).toEqual("test");
+    });
+
+    it("should create a new head and have that new head point to the old head", function() {
+      linkedList.addToTail("test");
+      linkedList.addToTail("test2");
+      linkedList.addToHead("test3");
+      expect(linkedList.head.value).toEqual("test3");
+      expect(linkedList.head.next.value).toEqual("test");
+    });
+
+  });
+
+  describe(".removeTail", function(){
+
+    // add more tests here to test the functionality of linkedList
+    it("should remove the last node of the linked list and return its value", function() {
+      linkedList.addToTail("test");
+      linkedList.addToTail("test2");
+      linkedList.addToTail("test3");
+      linkedList.removeTail();
+      expect(linkedList.removeTail()).toEqual("test2");
+    });
+
+  });
+
 });

@@ -4,9 +4,11 @@ var makeLinkedList = function(){
   linkedList.head = null;
   linkedList.tail = null;
   var result;
+
   linkedList.addToTail = function(value){
     if (linkedList.tail){
       linkedList.tail.next = makeNode(value);
+      linkedList.tail.next.previous = linkedList.tail;
       linkedList.tail = linkedList.tail.next;
     } else {
        linkedList.head = makeNode(value);
@@ -18,7 +20,8 @@ var makeLinkedList = function(){
     if (linkedList.head){
       result = linkedList.head;
       linkedList.head = result.next;
-      return result;
+      linkedList.head.previous = null;
+      return result.value;
     }
   };
 
@@ -41,6 +44,26 @@ var makeLinkedList = function(){
     }
   };
 
+  linkedList.addToHead = function(value){
+    if (linkedList.tail){
+      linkedList.head.previous = makeNode(value);
+      linkedList.head.previous.next = linkedList.head;
+      linkedList.head = linkedList.head.previous;
+    } else {
+       linkedList.head = makeNode(value);
+       linkedList.tail = linkedList.head;
+    }
+  };
+
+  linkedList.removeTail = function(){
+    if (linkedList.tail){
+      result = linkedList.tail.previous;
+      linkedList.tail = result.next;
+      linkedList.tail.next = null;
+      return result.value;
+    }
+  };
+
   return linkedList;
 };
 
@@ -48,6 +71,7 @@ var makeNode = function(value){
   var newNode = {};
   newNode.value = value;
   newNode.next = null;
+  newNode.previous = null;
 
   newNode.removeNextNode = function(){
     /*in order to remove a node, you need to have the pointer from
