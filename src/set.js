@@ -28,20 +28,23 @@ makeSet.setPrototype.add = function(val){
 
 // A .contains() method, takes any string and returns a boolean reflecting whether it can be found in the set
 makeSet.setPrototype.contains = function(val){
+  var result = false;
   if (typeof val === "string" || typeof val === "number" || typeof val === "boolean") {
     for (var primKey in this._primitiveStorage){
       if (this._primitiveStorage[primKey] === val){
-        return true;
+        result = true;
       }
     }
   } else {
-    _.each(_.values(this._complexStorage), function(value, index, array){
-      if (value === val){
-        return true;
+    var strVal = String(val);
+    _.each(this._complexStorage, function(value, index, array){
+      var strValue = String(value);
+      if (strValue === strVal){
+        result = true;
       }
     });
   }
-  return false;
+  return result;
 };
 
 // A .remove() method, takes any string and removes it from the set, if present
