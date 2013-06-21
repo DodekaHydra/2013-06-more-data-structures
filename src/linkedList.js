@@ -22,21 +22,22 @@ var makeLinkedList = function(){
     }
   };
 
-  linkedList.contains = function(target, currentNode){
+  linkedList.contains = function(target){
     // checks to see if node exists
     // _.contains = _.include = function(obj, target) {}
-    currentNode = currentNode || linkedList.head;
-    if (currentNode.value === target) {
-      return true;
-    } else if (currentNode.next) {
-      while (currentNode.next) {
-        currentNode = currentNode.next;
-        if (currentNode.value === target) {
-          return true;
-        }
+    // pull while around whole if structure
+    var currentNode = linkedList.head;
+    // remove this if statement as it repeats inside
+    while (currentNode.value) {
+      if (currentNode.value === target) {
+        return true;
       }
-    } else {
-      return false;
+      if (currentNode.next) {
+        currentNode = currentNode.next;
+      }
+      else {
+        return false;
+      }
     }
   };
 
