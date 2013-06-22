@@ -59,6 +59,7 @@ describe("hashTable", function() {
       hashTable.insert("test2",2);
       hashTable.insert("another val", "yay!");
       hashTable.insert("ohhhhhhh", "yeeaaaahhh");
+      debugger;
       expect(hashTable.retrieve("test")).toBe(1);
       expect(hashTable.retrieve("test2")).toBe(2);
     });
