@@ -23,7 +23,6 @@ HashTable.prototype.insert = function(key, value){
     _.each(storage, function(val) {
       that._storage.set(getIndexBelowMaxForKey(val[0], this._limit), val[1]);
     });
-    this._storage.see();
   }
 
   var index = getIndexBelowMaxForKey(key, this._limit);
@@ -35,30 +34,6 @@ HashTable.prototype.insert = function(key, value){
   } else {
     this.counter++;
   }
-
-  // REDISTRIBUTION
-
-  //if (this.counter / this._limit > 0.75){
-  //  this._limit *= 2;
-    // var redistributable = [];
-    // var flattened = [];
-    // // _.flatten()
-    // for (var tier = 0; tier < this._limit; tier++){
-    //   for (var i = 0; tier < this._storage.get(tier); i++){
-    //   flattened.push(each array);
-    //   console.log("This is what's flattened", flattened);
-    //   }
-    // }
-    // for (var i=0;i<newTable;i++){
-    //   redistributable.push(newTable[0]);
-    //   console.log("Hey!" + newTable[0]);
-    // }
-    // _.each(newTable, function(val, ind, arr){
-    //   redistributable.push(val);
-    //   console.log("REDIS", redistributable);
-    // });
- // }
-
   result.push(keyPairObject);
   this._storage.set(index, result);
 };

@@ -23,13 +23,16 @@ describe("tree", function() {
       expect(tree.children[0].value).toEqual("child");
     });
 
-    it("should be able to add two children to the parent node", function() {
+    it("should be able to add two children to the parent node, and be able to recognize that parent node", function() {
       tree.addChild("parent");
       tree.addChild("child1");
       tree.addChild("child2");
       expect(tree.children[1].value).toContain("child2");
       expect(tree.children[0].value).toContain("child1");
+      expect(tree.children[1].parent.value).toEqual("parent");
+      expect(tree.children[0].parent.value).toEqual("parent");
     });
+
 
     it("should be able to add children on any level", function() {
       tree.addChild("parent");
@@ -58,11 +61,21 @@ describe("tree", function() {
       expect(tree.contains("another")).toEqual(true);
     });
 
-    it("should multiple levels of the tree for the value", function() {
+    it("should seach multiple levels of the tree for the value and correctly identify the parent node", function() {
       tree.addChild("test");
       tree.addChild("node");
       tree.children[0].addChild("nodeChild");
       expect(tree.contains("nodeChild")).toEqual(true);
+      expect(tree.children[0].children[0].parent.value).toEqual("node");
+    });
+
+    it("should remove node and all descendants from parent node", function() {
+      tree.addChild("test");
+      tree.addChild("node");
+      tree.children[0].addChild("nodeChild");
+      var removed = tree.children[0].children[0].removeFromParent();
+      expect(tree.children[0].children[0]).toEqual(undefined);
+      expect(tree.children[0].value).toEqual("node");
     });
   });
   // Add more tests here to test the functionality of tree.
