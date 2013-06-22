@@ -1,3 +1,5 @@
+/*jshint expr:true*/
+
 var HashTable = function(){
   this._limit = 8;
   this.counter = 0;
@@ -5,36 +7,53 @@ var HashTable = function(){
 };
 
 HashTable.prototype.insert = function(key, value){
+  // If it's all full, make it bigger
+  var that = this;
+  if (this.counter / this._limit > 0.75) {
+    this._limit*=2;
+    var storage = [];
+    for (var i = 0; i < this._limit; i++) {
+      var val = this._storage.get(i);
+      val && storage.push(val);
+    }
+    storage = _.flatten(storage, true);
+    _.each(storage, function(val) {
+      that._storage.set(getIndexBelowMaxForKey(val[0], this._limit), val[1]);
+    });
+  }
+
   var index = getIndexBelowMaxForKey(key, this._limit);
   var result = [];
-  var keyPairObject = {};
+  var keyPairObject = [key,value];
   var thisIndex = this._storage.get(index);
-  keyPairObject[key] = value;
   if (thisIndex){
     result = thisIndex;
   } else {
     this.counter++;
   }
 
-
   // REDISTRIBUTION
 
-  if (this.counter / this._limit > 0.75){
+  //if (this.counter / this._limit > 0.75){
   //  this._limit *= 2;
-    var redistributable = [];
-    var newTable = [];
-    for (var tier = 0; tier < this._limit; tier++){
-        newTable.push(this._storage.get(tier));
-        console.log("NT", newTable);
-    }
-    for (var i=0;i<newTable.length;i++){
-     
-    }
+    // var redistributable = [];
+    // var flattened = [];
+    // // _.flatten()
+    // for (var tier = 0; tier < this._limit; tier++){
+    //   for (var i = 0; tier < this._storage.get(tier); i++){
+    //   flattened.push(each array);
+    //   console.log("This is what's flattened", flattened);
+    //   }
+    // }
+    // for (var i=0;i<newTable;i++){
+    //   redistributable.push(newTable[0]);
+    //   console.log("Hey!" + newTable[0]);
+    // }
     // _.each(newTable, function(val, ind, arr){
     //   redistributable.push(val);
     //   console.log("REDIS", redistributable);
     // });
-  }
+ // }
 
   result.push(keyPairObject);
   this._storage.set(index, result);
@@ -44,8 +63,8 @@ HashTable.prototype.retrieve = function(key){
   var index = getIndexBelowMaxForKey(key, this._limit);
   var thisIndex = this._storage.get(index);
   for (var i = 0; i < thisIndex.length; i++){
-    if (thisIndex[i].hasOwnProperty(key)){
-      return thisIndex[i][key];
+    if (thisIndex[i][0] === key){
+      return thisIndex[i][1];
     }
   }
 };
@@ -54,7 +73,7 @@ HashTable.prototype.remove = function(key){
   var index = getIndexBelowMaxForKey(key, this._limit);
   var thisIndex = this._storage.get(index);
   for (var i = 0;i < thisIndex.length;i++){
-    if (thisIndex[i].hasOwnProperty(key)){
+    if (thisIndex[i][0] === key){
       thisIndex.splice(i,1);
     }
   }
