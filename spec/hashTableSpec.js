@@ -25,6 +25,7 @@ describe("hashTable", function() {
     });
 
     it("should overwrite the value at a key given a new value", function() {
+
       hashTable.insert("dupe",4);
       hashTable.insert("dupe",5);
       expect(hashTable.retrieve("dupe")).toEqual(5);
@@ -49,7 +50,7 @@ describe("hashTable", function() {
   describe("collisions", function() {
     it("should throw an error when key does not exist", function() {
       hashTable.insert("test",1);
-      expect(hashTable.retrieve("what's this")).toBe(false);
+      expect(hashTable.retrieve("what's this")).toBe(undefined);
     });
 });
   // add more tests here to test the functionality of hashTable
