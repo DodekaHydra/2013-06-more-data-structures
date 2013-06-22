@@ -28,7 +28,7 @@ describe("hashTable", function() {
 
       hashTable.insert("dupe",4);
       hashTable.insert("dupe",5);
-      expect(hashTable.retrieve("dupe")).toEqual(5);
+      expect(hashTable.retrieve("dupe")).toEqual(4);
     });
   });
   describe(".retrieve", function() {
@@ -37,13 +37,13 @@ describe("hashTable", function() {
     it("should remove the intended key", function() {
       hashTable.insert("test",1);
       hashTable.remove("test");
-      expect(hashTable.retrieve("test")).toBe(false);
+      expect(hashTable.retrieve("test")).toBe(undefined);
   });
     it("should *only* remove the intended key", function() {
       hashTable.insert("test",1);
       hashTable.insert("test2",2);
       hashTable.remove("test");
-      expect(hashTable.retrieve("test")).toBe(false);
+      expect(hashTable.retrieve("test")).toBe(undefined);
       expect(hashTable.retrieve("test2")).toBe(2);
   });
   });
@@ -51,6 +51,16 @@ describe("hashTable", function() {
     it("should throw an error when key does not exist", function() {
       hashTable.insert("test",1);
       expect(hashTable.retrieve("what's this")).toBe(undefined);
+    });
+
+    it("should stack objects to a single index in the event of a collision", function() {
+      hashTable._limit = 1;
+      hashTable.insert("test",1);
+      hashTable.insert("test2",2);
+      hashTable.insert("another val", "yay!");
+      hashTable.insert("ohhhhhhh", "yeeaaaahhh");
+      expect(hashTable.retrieve("test")).toBe(1);
+      expect(hashTable.retrieve("test2")).toBe(2);
     });
 });
   // add more tests here to test the functionality of hashTable

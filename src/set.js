@@ -36,6 +36,7 @@ makeSet.setPrototype.contains = function(val){
       }
     }
   } else {
+    //Hey let's make this a O(1) lookup by setting the key to String(value) instead of iterating through the set and comparing stringed values
     var strVal = String(val);
     _.each(this._complexStorage, function(value, index, array){
       var strValue = String(value);

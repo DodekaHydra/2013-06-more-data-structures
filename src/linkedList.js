@@ -57,8 +57,9 @@ var makeLinkedList = function(){
 
   linkedList.removeTail = function(){
     if (linkedList.tail){
-      result = linkedList.tail.previous;
-      linkedList.tail = result.next;
+      result = linkedList.tail;
+      linkedList.tail = linkedList.tail.previous;
+      linkedList.tail.next.previous = null;
       linkedList.tail.next = null;
       return result.value;
     }
@@ -76,7 +77,9 @@ var makeNode = function(value){
   newNode.removeNextNode = function(){
     /*in order to remove a node, you need to have the pointer from
     the previous node which identifies the node to delete*/
+    newNode.next.previous=null;
     newNode.next=newNode.next.next;
+    newNode.next.previous= newNode;
   };
 
   return newNode;

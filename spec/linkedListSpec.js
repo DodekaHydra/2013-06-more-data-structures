@@ -104,8 +104,7 @@ describe("linkedList", function() {
       linkedList.addToTail("test");
       linkedList.addToTail("test2");
       linkedList.addToTail("test3");
-      linkedList.removeTail();
-      expect(linkedList.removeTail()).toEqual("test2");
+      expect(linkedList.removeTail()).toEqual("test3");
     });
 
   });
