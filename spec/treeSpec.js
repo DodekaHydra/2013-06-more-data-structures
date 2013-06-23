@@ -78,5 +78,24 @@ describe("tree", function() {
       expect(tree.children[0].value).toEqual("node");
     });
   });
+  describe(".traverse", function(){
+    it("should call a callback on all the nodes of the targeted tree", function() {
+//      debugger;
+      tree.addChild("test");
+      tree.addChild("node");
+      tree.addChild("node2");
+      tree.children[0].addChild("c1");
+      tree.children[0].addChild("c2");
+      tree.children[1].addChild("c3");
+      tree.children[1].addChild("c4");
+      var results = [];
+      var pushtoarray = function(node){
+        results.push(node.value);
+        return results;
+      };
+      tree.traverse(pushtoarray);
+      expect(results.length).toEqual(7);
+    });
+  });
   // Add more tests here to test the functionality of tree.
 });
